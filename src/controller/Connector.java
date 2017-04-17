@@ -8,9 +8,6 @@ import org.bson.Document;
 import static com.mongodb.client.model.Filters.eq;
 import java.io.IOException;
 
-/**
- * Created by Xenon on 3/15/2017.
- */
 public class Connector {
 
     MongoDatabase db;
@@ -40,6 +37,7 @@ public class Connector {
         booklist.updateOne(eq(attr, val), new Document("$set", doc));       
     }
     
+ 
     public MongoCollection<Document> getData()
     {
         return db.getCollection("sellmemo");
