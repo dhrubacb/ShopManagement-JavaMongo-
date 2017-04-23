@@ -75,7 +75,7 @@ public class Details extends javax.swing.JFrame {
 
         jLabel15.setText("Year");
 
-        jLabel2.setText("Brand  :");
+        jLabel2.setText("Entry By");
 
         jLabel1.setText("Company  :");
 
@@ -121,15 +121,15 @@ public class Details extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel11))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -224,7 +224,9 @@ public class Details extends javax.swing.JFrame {
         jLabel5.setText((String)d.get("Address"));
         if(d.containsKey("Phone"))jLabel6.setText((String)d.get("Phone"));
         if(d.containsKey("Company"))jLabel7.setText((String)d.get("Company"));
-        if(d.containsKey("Brand"))jLabel8.setText((String)d.get("Brand"));
+      jLabel8.setText((String)d.get("Entry_by"));
+      
+        jLabel9.setText((String)d.get("Quantity"));
         jLabel9.setText((String)d.get("Price"));
         jLabel16.setText((String)d.get("Warrenty"));
         
@@ -232,11 +234,11 @@ public class Details extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Menu menu =new Menu();
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
 
-        Menu.M.getContentPane().add(Menu.MenuPan);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+          LogIn.log.getContentPane().add(Menu.MenuPan);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

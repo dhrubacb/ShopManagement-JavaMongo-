@@ -32,6 +32,8 @@ public class SellItem extends javax.swing.JFrame {
     public static String quantity;
     public static int available ;
     public static int ind;
+    public static  String str;
+    public static String pricePer;
     public SellItem() {
         initComponents();
        
@@ -136,14 +138,15 @@ public class SellItem extends javax.swing.JFrame {
 
         jLabel4.setText("Available:");
 
-        jLabel5.setText("jLabel5");
-
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField1KeyTyped(evt);
             }
@@ -277,6 +280,7 @@ public class SellItem extends javax.swing.JFrame {
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      
         Document doc;
         doc = new Document();
               ProductController conu = new ProductController();
@@ -292,6 +296,7 @@ public class SellItem extends javax.swing.JFrame {
         if(!price.getText().isEmpty()) doc.append("Price", price.getText());
         if(!war.getText().isEmpty()) doc.append("Warrenty", war.getText());
          if(!add.getText().isEmpty()) doc.append("Address", add.getText());
+       doc.append("Entry_by", Menu.handle);
         Connector con = new Connector();
         con.connect();
         int index = con.getIndex();
@@ -316,11 +321,11 @@ public class SellItem extends javax.swing.JFrame {
         
         
          Menu menu =new Menu();
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
         
-    Menu.M.getContentPane().add(Menu.MenuPan);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+      LogIn.log.getContentPane().add(Menu.MenuPan);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
       
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -331,11 +336,11 @@ public class SellItem extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
          Menu menu =new Menu();
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
         
-    Menu.M.getContentPane().add(Menu.MenuPan);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+      LogIn.log.getContentPane().add(Menu.MenuPan);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
@@ -346,8 +351,8 @@ public class SellItem extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
          ProductController conu = new ProductController();
         conu.connect();
-         String prc = conu.find( (String) jComboBox1.getSelectedItem());
-        price.setText(prc);
+         pricePer = conu.find( (String) jComboBox1.getSelectedItem());
+       
           quantity = conu.quantity( (String) jComboBox1.getSelectedItem());
         jLabel5.setText(quantity);
          ind =  conu.index( (String) jComboBox1.getSelectedItem());
@@ -356,12 +361,22 @@ public class SellItem extends javax.swing.JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        
        
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
        
     }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        str= jTextField1.getText();
+        if(Integer.parseInt(str)>Integer.parseInt(quantity))
+            jTextField1.setText(quantity);
+        int pr =Integer.parseInt( jTextField1.getText()) * Integer.parseInt(pricePer); 
+        price.setText(Integer.toString(pr));
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     /**
      * @param args the command line arguments

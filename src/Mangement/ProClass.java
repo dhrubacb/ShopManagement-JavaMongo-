@@ -175,23 +175,23 @@ public class ProClass extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
 
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
         ProDetails pd = new ProDetails();
 
-        Menu.M.getContentPane().add(pd.detailsPanel);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+          LogIn.log.getContentPane().add(pd.detailsPanel);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
         ProUpdate up = new ProUpdate();
 
-        Menu.M.getContentPane().add(up.upPanel);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+          LogIn.log.getContentPane().add(up.upPanel);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -208,21 +208,21 @@ public class ProClass extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         Menu menu =new Menu();
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
 
-        Menu.M.getContentPane().add(Menu.MenuPan);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+          LogIn.log.getContentPane().add(Menu.MenuPan);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         AddItem ad =new AddItem();
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
 
-        Menu.M.getContentPane().add(ad.addPanel);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+          LogIn.log.getContentPane().add(ad.addPanel);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

@@ -7,11 +7,19 @@ package Mangement;
 
 import static Mangement.SellItem.sellPanel;
 import com.mongodb.client.MongoCollection;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import controller.Connector;
+import java.awt.BorderLayout;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Vector;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.bson.Document;
@@ -29,10 +37,19 @@ public class Menu extends javax.swing.JFrame {
     public static javax.swing.JPanel MenuPan;
     private Object Table;
     public static int idno;
+    public static String handle ="";
+    Vector originalTableModel;
+    public static String password ="";
+    DocumentListener documentListener;
+    String searchStr;
     public Menu() {
         initComponents();
+         
         MenuPan = pan;
+        jLabel3.setText(handle);
        initialize(null, null);
+         originalTableModel = (Vector) ((DefaultTableModel) jTable1.getModel()).getDataVector().clone();
+        
         /**
          * Copying Panel
          */
@@ -56,8 +73,15 @@ public class Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(815, 523));
 
         sellBut.setBackground(new java.awt.Color(0, 51, 153));
         sellBut.setForeground(new java.awt.Color(255, 255, 255));
@@ -78,7 +102,7 @@ public class Menu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Item ", "Price"
+                "Id", "Name", "Item ", "Bill", "Entry By"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,31 +151,89 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(204, 0, 0));
+        jButton6.setForeground(new java.awt.Color(204, 204, 255));
+        jButton6.setText("Log out");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jLabel2.setText("Search");
+
+        jLabel3.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("User:");
+
+        jButton8.setBackground(new java.awt.Color(0, 51, 51));
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Create New User");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panLayout = new javax.swing.GroupLayout(pan);
         pan.setLayout(panLayout);
         panLayout.setHorizontalGroup(
             panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panLayout.createSequentialGroup()
                 .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLayout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panLayout.createSequentialGroup()
+                            .addGap(113, 113, 113)
+                            .addComponent(jLabel2)
+                            .addGap(32, 32, 32)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLayout.createSequentialGroup()
+                            .addGap(80, 80, 80)
+                            .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panLayout.createSequentialGroup()
+                                    .addComponent(jButton3)
+                                    .addGap(51, 51, 51)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(48, 48, 48)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addGap(52, 52, 52)
                         .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panLayout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jButton3)
-                                .addGap(50, 50, 50)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(65, 65, 65)
-                        .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sellBut, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(sellBut, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLayout.createSequentialGroup()
+                                .addGap(0, 26, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panLayout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         panLayout.setVerticalGroup(
             panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,24 +242,43 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panLayout.createSequentialGroup()
                         .addComponent(sellBut, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
+                        .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
+            .addGroup(panLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,25 +293,46 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_sellButActionPerformed
 
+                            
+               
+
+public void searchTableContents(String searchString) {
+    DefaultTableModel currtableModel = (DefaultTableModel) jTable1.getModel();
+    //To empty the table before search
+    currtableModel.setRowCount(0);
+    //To search for contents from original table content
+    for (Object rows : originalTableModel) {
+        Vector rowVector = (Vector) rows;
+        for (Object column : rowVector) {
+            if (column.toString().contains(searchString)) {
+                //content found so adding to table
+                currtableModel.addRow(rowVector);
+                break;
+            }
+        }
+
+    }
+}
+
     private void sellButMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sellButMouseClicked
         // TODO add your handling code here:
        
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
         SellItem sellVar = new SellItem();
-        Menu.M.getContentPane().add(sellVar.sellPanel);
-        Menu.M.repaint();
-       Menu.M.revalidate();
+          LogIn.log.getContentPane().add(sellVar.sellPanel);
+          LogIn.log.repaint();
+         LogIn.log.revalidate();
     }//GEN-LAST:event_sellButMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
         Update up = new Update();
 
-        Menu.M.getContentPane().add(up.upPanel);
-        Menu.M.repaint();
-       Menu.M.revalidate();
+          LogIn.log.getContentPane().add(up.upPanel);
+          LogIn.log.repaint();
+         LogIn.log.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -230,29 +352,67 @@ public class Menu extends javax.swing.JFrame {
           Connector con = new Connector();
         con.connect();
          con.delete("itemId", idno);
+         originalTableModel = (Vector) ((DefaultTableModel) jTable1.getModel()).getDataVector().clone();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         
-          Menu.M.getContentPane().removeAll();
+            LogIn.log.getContentPane().removeAll();
         Details up = new Details();
 
-        Menu.M.getContentPane().add(up.upPanel);
-        Menu.M.repaint();
-       Menu.M.revalidate();
+          LogIn.log.getContentPane().add(up.upPanel);
+          LogIn.log.repaint();
+         LogIn.log.revalidate();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         Menu.M.getContentPane().removeAll();
+           LogIn.log.getContentPane().removeAll();
         ProClass pro = new ProClass();
         
-        Menu.M.getContentPane().add(pro.proPanel);
-        Menu.M.repaint();
-       Menu.M.revalidate();
+          LogIn.log.getContentPane().add(pro.proPanel);
+          LogIn.log.repaint();
+         LogIn.log.revalidate();
                                         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        handle= "";
+        password = "";
+         LogIn.log.getContentPane().removeAll();
+        LogIn log = new LogIn();
+          LogIn.log.getContentPane().add(LogIn.logPanel);
+          LogIn.log.repaint();
+         LogIn.log.revalidate();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        searchStr = jTextField1.getText();
+        if(searchStr=="")
+            initialize(null,null);
+        searchTableContents(searchStr);
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        // TODO add your handling code here:
+        searchStr = jTextField1.getText();
+        if(searchStr=="")
+            initialize(null,null);
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+
+        LogIn.log.getContentPane().removeAll();
+        Register reg = new Register();
+
+        LogIn.log.getContentPane().add(reg.RegPan);
+        LogIn.log.repaint();
+        LogIn.log.revalidate();
+    }//GEN-LAST:event_jButton8ActionPerformed
  public void initialize(URL location, ResourceBundle resources) {
         Connector con = new Connector();
         con.connect();
@@ -264,10 +424,11 @@ public class Menu extends javax.swing.JFrame {
             
             String name = (String) doc.get("Customer Name");
             String _for = (String) doc.get("Company");
-            String author = (String) doc.get("Price");
+            String Billof = (String) doc.get("Price");
+            String entry = (String) doc.get("Entry_by");
               DefaultTableModel model;
             model = (DefaultTableModel) jTable1.getModel();
-         model.addRow(new Object[]{index,name,_for,author});
+         model.addRow(new Object[]{index,name,_for,Billof,entry});
             
         }
         
@@ -328,9 +489,15 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pan;
     private javax.swing.JButton sellBut;
     // End of variables declaration//GEN-END:variables

@@ -278,22 +278,22 @@ public class Update extends javax.swing.JFrame {
          con.update("itemId", Menu.idno, doc);
         System.out.println("data inserted");
          Menu menu =new Menu();
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
         
-    Menu.M.getContentPane().add(Menu.MenuPan);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+      LogIn.log.getContentPane().add(Menu.MenuPan);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Menu menu =new Menu();
-        Menu.M.getContentPane().removeAll();
+          LogIn.log.getContentPane().removeAll();
 
-        Menu.M.getContentPane().add(Menu.MenuPan);
-        Menu.M.repaint();
-        Menu.M.revalidate();
+          LogIn.log.getContentPane().add(Menu.MenuPan);
+          LogIn.log.repaint();
+          LogIn.log.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
